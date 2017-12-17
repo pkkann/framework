@@ -1,0 +1,6 @@
+{
+    "overview": {
+        "controller": "UsersController",
+        "method": "overview"
+    }
+}

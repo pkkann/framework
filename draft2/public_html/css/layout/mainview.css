@@ -1,0 +1,14 @@
+#content {
+    position: fixed;
+    top: 45.7px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+    #content .container {
+        padding-top: 15px;
+    }
+
+    #content .table.cursor tbody tr {
+        cursor: pointer;
+    }
