@@ -1,0 +1,14 @@
+{
+    "index": {
+        "controller": "LoginController",
+        "method": "index"
+    },
+    "authenticate": {
+        "controller": "LoginController",
+        "method": "authenticate"
+    },
+    "deauthenticate": {
+        "controller": "LoginController",
+        "method": "deauthenticate"
+    }
+}

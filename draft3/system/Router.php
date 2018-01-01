@@ -31,6 +31,13 @@ class Router extends Singleton {
             $action = $routes->{$_GET['action']};
             $this->validateAction($action);
 
+            // Check session if auth protected
+            if(isset($action->authprotected) && $action->authprotected === TRUE) {
+                if(!isset($_SESSION['user'])) {
+                    throw new AccessException("Access denied");
+                }
+            }
+
             // Check views folder exists
             $viewsUrl = $moduleUrl."/views";
             if( !file_exists($viewsUrl) ) {
@@ -39,8 +46,13 @@ class Router extends Singleton {
 
             // Instantiate plates engine
             $plates = new League\Plates\Engine();
-            $plates->addFolder('layouts', '../app/layouts');
+            $plates->addFolder('layouts', '../app/layout/views');
             $plates->addFolder('views', $viewsUrl);
+
+            // Instantiate layout controller
+            require '../app/layout/LayoutController.php';
+            $layoutController = new LayoutController($plates);
+            $layoutController->init();
 
             // Check controller exists
             $controllerUrl = $moduleUrl."/".$action->controller.".php";
