@@ -13,10 +13,6 @@ class LayoutController extends BaseController {
                 return "active";
             }
         });
-
-        if(isset($_SESSION['user'])) {
-            $this->plates->addData(['user' => $_SESSION['user']]);
-        }
     }
 
 }

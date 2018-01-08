@@ -53,6 +53,21 @@ class Router extends Singleton {
             require '../app/layout/LayoutController.php';
             $layoutController = new LayoutController($plates);
             $layoutController->init();
+			
+			// Check model exists, if set
+			$model = null;
+			if( isset($action->model) ) {
+				$modelUrl = $moduleUrl."/".$action->model.".php";
+				if( !file_exists($modelUrl) ) {
+					throw new RouterException("Model file '".$action->model."' is missing in module '".$_GET['module']."'");
+				}
+				require $modelUrl;
+				if( !class_exists($action->model) ) {
+					throw new RouterException("Model '".$action->model."' seems to be wrongly named in model file in module '".$_GET['module']."'");
+				}
+				$db = new PDO("mysql:host=localhost;port=3306;dbname=hoes;charset=utf8", "root", "", array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+				$model = new $action->model($db);
+			}
 
             // Check controller exists
             $controllerUrl = $moduleUrl."/".$action->controller.".php";
@@ -63,7 +78,10 @@ class Router extends Singleton {
             if( !class_exists($action->controller) ) {
                 throw new RouterException("Controller '".$action->controller."' seems to be wrongly named in controller file in module '".$_GET['module']."'");
             }
-            $controller = new $action->controller($plates);
+			
+			// Instantiate controller
+            $controller = new $action->controller($plates, $model);
+			
 
             // Check method exists
             if( !method_exists($controller, $action->method) ) {

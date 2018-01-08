@@ -2,9 +2,11 @@
 class BaseController {
     
     protected $plates;
+	protected $model;
 
-    public function __construct(League\Plates\Engine $plates) {
+    public function __construct(League\Plates\Engine $plates, $model = null) {
         $this->plates = $plates;
+		$this->model = $model;
 
         if(isset($GLOBALS['autoload']['helpers'])) {
             foreach ($GLOBALS['autoload']['helpers'] as $helper) {

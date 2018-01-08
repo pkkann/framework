@@ -1,36 +1,28 @@
 <?php
 class LoginController extends BaseController {
-
-    public function __construct(League\Plates\Engine $plates) {
-        parent::__construct($plates);
-        $this->loadHelper("url");
-        $this->loadHelper("db");
-        $this->loadHelper("api");
-    }
     
     public function index() {
         if(isset($_SESSION['user'])) {
+			$this->loadHelper("url");
             $this->url->redirect("dashboard", "index");
         }
         echo $this->plates->render('views::index');
     }
 
     public function authenticate() {
+        $this->loadHelper("api");
+		
         $username = trim($_POST['username']);
         $password = $_POST['password'];
-
-        $stmt = $this->db->pdo()->prepare("SELECT `id`, `name`, `username`, `password` FROM `user` WHERE `username` = :username");
-        $stmt->bindParam(":username", $username);
-        if(!$stmt->execute() || $stmt->rowCount() == 0) {
-            $this->api->outputJSON(['error' => "Brugernavn eller adgangskode er forkert"]);
-        }
-
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
+		
+		$user = $this->model->findUser($username);
+		if(!$user) {
+			$this->api->outputJSON(['error' => "Brugernavn eller adgangskode er forkert"]);
+		}
+		
         if(password_verify($password, $user->password)) {
             $_SESSION['user'] = (object)[
-                "id" => $user->id,
-                "username" => $user->username,
-                "name" => $user->name
+                "id" => $user->id
             ];
         } else {
             $this->api->outputJSON(['error' => "Brugernavn eller adgangskode er forkert"]);
@@ -38,6 +30,7 @@ class LoginController extends BaseController {
     }
 
     public function deauthenticate() {
+		$this->loadHelper("url");
         session_destroy();
         session_start();
         $this->url->redirect("login", "index");

@@ -5,7 +5,8 @@
     },
     "authenticate": {
         "controller": "LoginController",
-        "method": "authenticate"
+        "method": "authenticate",
+		"model": "LoginModel"
     },
     "deauthenticate": {
         "controller": "LoginController",

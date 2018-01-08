@@ -68,6 +68,7 @@ $("#loginform").ajaxForm({
         if(e.error) {
             $("#loginform button.primary").removeClass("loading");
             $(".errormsg p").html(e.error).parent().removeClass("hidden");
+			$("#loginform input[name=password]").val("").focus();
         } else {
             window.location.href = "<?= $this->e($this->action("login", "authenticate")) ?>";
         }
