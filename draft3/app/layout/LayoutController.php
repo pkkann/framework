@@ -13,6 +13,23 @@ class LayoutController extends BaseController {
                 return "active";
             }
         });
+		
+		$this->plates->registerFunction("objPHPToJS", function($obj) {
+			$t = "{";
+			$s = false;
+			foreach($obj as $key => $value) {
+				if($s) {
+					$t .= ", ";
+				}
+				if( is_string($value) ) {
+					$value = "'".$value."'";
+				}
+				$t .= $key." : ".$value;
+				$s = true;
+			}
+			$t .= "}";
+			return $t;
+		});
     }
 
 }

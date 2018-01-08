@@ -17,6 +17,9 @@
 		<!-- jQuery toast -->
 		<link rel="stylesheet" href="libs/toast/toast.css">
 		<script src="libs/toast/toast.js"></script>
+		
+		<!-- Font awesome -->
+		<link rel="stylesheet" href="libs/fontawesome/css/font-awesome.min.css">
 	</head>
 	<body>
 		<?=$this->section('content')?>
