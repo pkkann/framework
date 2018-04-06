@@ -2,6 +2,31 @@
     "index": {
         "controller": "UsersController",
         "method": "index",
-		"model": "UsersModel"
-    }
+		"model": "UsersModel",
+		"authprotected": true
+    },
+	"get": {
+		"controller": "UsersController",
+		"method": "get",
+		"model": "UsersModel",
+		"authprotected": true
+	},
+	"getall": {
+		"controller": "UsersController",
+		"method": "getAll",
+		"model": "UsersModel",
+		"authprotected": true
+	},
+	"create": {
+		"controller": "UsersController",
+		"method": "create",
+		"model": "UsersModel",
+		"authprotected": true
+	},
+	"save": {
+		"controller": "UsersController",
+		"method": "save",
+		"model": "UsersModel",
+		"authprotected": true
+	}
 }

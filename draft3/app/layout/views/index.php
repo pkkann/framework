@@ -20,9 +20,34 @@
 		
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="libs/fontawesome/css/font-awesome.min.css">
+
+		<!-- -->
+		<link rel="stylesheet" href="libs/datatables/datatables.min.css">
+		<script src="libs/datatables/datatables.min.js"></script>
+		<script src="libs/datatables/datatables.da.js"></script>
 	</head>
 	<body>
 		<?=$this->section('content')?>
+		
+		<div class="ui" id="loader">
+			<div class="ui dimmer">
+				<div class="ui text loader"></div>
+			</div>
+			<p></p>
+		</div>
 		<div id="toast"></div>
+		
+		<!-- ** Global functions ** -->
+		<script>
+		
+			function toggleLoader() {
+				if( $("#loader .dimmer").hasClass("active") ) {
+					$("#loader .dimmer").removeClass("active");
+				} else {
+					$("#loader .dimmer").addClass("active");
+				}
+			}
+		
+		</script>
 	</body>
 </html>

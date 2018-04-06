@@ -2,16 +2,19 @@
     "index": {
         "controller": "MyProfileController",
         "method": "index",
-		"model": "MyProfileModel"
+		"model": "MyProfileModel",
+		"authprotected": true
     },
 	"save": {
 		"controller": "MyProfileController",
 		"method": "save",
-		"model": "MyProfileModel"
+		"model": "MyProfileModel",
+		"authprotected": true
 	},
 	"savenewpass": {
 		"controller": "MyProfileController",
 		"method": "saveNewPass",
-		"model": "MyProfileModel"
+		"model": "MyProfileModel",
+		"authprotected": true
 	}
 }
